@@ -1,0 +1,9 @@
+Django>=3.0,<4.0
+psycopg2-binary>=2.8
+djangorestframework==3.12.2
+django-extensions
+django-cors-headers==3.7.0
+django-admin-sortable2==0.7.8
+django-filter==2.4.0
+requests
+
