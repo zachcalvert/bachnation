@@ -4,7 +4,6 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import { createMuiTheme, CssBaseline, Grid, Hidden, Link, ThemeProvider, makeStyles } from '@material-ui/core';
 import { AppBar, Drawer, IconButton, Toolbar, Typography } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
-import HomeRoundedIcon from '@material-ui/icons/HomeRounded';
 import Brightness4Icon from '@material-ui/icons/Brightness4';
 
 import { AllContestants } from './components/Contestant/AllContestants';
@@ -24,10 +23,16 @@ const useStyles = makeStyles((theme) => ({
   appBar: {
     background: '#4E78A0',
     zIndex: theme.zIndex.drawer + 1,
+    width: '100%',
     [theme.breakpoints.up('sm')]: {
       width: '100%',
       marginLeft: drawerWidth,
     },
+  },
+  home: {
+    fontSize: 24,
+    paddingRight: theme.spacing(2),
+    textDecoration: 'none'
   },
   darkModeToggle: {
     marginLeft: 'auto'
@@ -108,10 +113,10 @@ export const App = () => {
             <MenuIcon />
           </IconButton>
           <Link color="inherit" href="/">
-            <HomeRoundedIcon fontSize='large' />
+            <span className={classes.home}>🌹</span>
           </Link>
           <Typography variant='h6'>The Original Bach League</Typography>
-          <IconButton style={{"outline": "none"}} edge="end" color="inherit" onClick={handleDarkModeChange} aria-label="dark-mode-toggle">
+          <IconButton style={{"outline": "none"}} className={classes.darkModeToggle} edge="end" color="inherit" onClick={handleDarkModeChange} aria-label="dark-mode-toggle">
             <Brightness4Icon style={{"fill": prefersDarkMode ? "#ffeb3b" : ""}} />
           </IconButton>
         </Toolbar>

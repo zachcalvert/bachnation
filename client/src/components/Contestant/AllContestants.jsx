@@ -61,7 +61,7 @@ export const AllContestants = () => {
             <TableCell>Name</TableCell>
             <TableCell align="right">Age</TableCell>
             <TableCell align="right">Profession</TableCell>
-            <TableCell align="right">Team</TableCell>
+            <TableCell align="right">Roses</TableCell>
             <Hidden smDown>
               <TableCell align="right">Team</TableCell>
             </Hidden>
@@ -73,6 +73,7 @@ export const AllContestants = () => {
               <TableCell>{contestant.name}</TableCell>
               <TableCell align="right">{contestant.age}</TableCell>
               <TableCell align="right">{contestant.profession}</TableCell>
+              <TableCell align="right">{contestant.roses}</TableCell>
               <Hidden smDown>
                 <TableCell component="th" scope="row">
                   <Link color='inherit' href={`/contestant/${contestant.id}`}>{contestant.name}</Link>

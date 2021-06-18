@@ -18,10 +18,15 @@ const useStyles = makeStyles((theme) => ({
     overflow: 'hidden',
     textAlign: 'center',
     backgroundColor: theme.palette.background.paper,
+    width: 350,
+    [theme.breakpoints.down('sm')]: {
+      width: '88vw',
+    },
   },
   large: {
     height: 100,
-    width: 100
+    width: 100,
+    margin: theme.spacing(2)
   },
   medium: {
     height: 80,
@@ -36,10 +41,17 @@ const useStyles = makeStyles((theme) => ({
   },
   teamCell: {
     display: 'flex',
+  },
+  teamContainer: {
+    display: 'block',
     padding: theme.spacing(2)
   },
   teamName: {
-    margin: 'auto',
+    marginBottom: 'auto',
+    marginLeft: theme.spacing(2)
+  },
+  totalRoses: {
+    marginBottom: 'auto',
     marginLeft: theme.spacing(2)
   },
   gridList: {
@@ -67,11 +79,13 @@ export const League = () => {
             <Paper className={classes.paper} variant='outlined'>
               <div className={classes.teamCell}>
                 <Avatar className={classes.large} src={team.image} />
-                <Link className={classes.teamName}color='inherit' href={`/team/${team.id}`}>
-                  <Typography variant='h6'>Team {team.name}</Typography>
-                </Link>
+                <div className={classes.teamContainer}>
+                  <Link className={classes.teamName} color='inherit' href={`/team/${team.id}`}>
+                    <Typography variant='h6'>Team {team.name}</Typography>
+                  </Link>
+                  <Typography variant='subtitle2'>{team.total_roses} roses</Typography>
+                </div>
               </div>
-
               <Divider />
 
               <GridList cellHeight={160} className={classes.gridList} cols={3}>

@@ -7,34 +7,38 @@ class ContestantSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Contestant
-        fields = ['id', 'name', 'age', 'image', 'profession', 'eliminated']
+        fields = ['id', 'name', 'age', 'image', 'profession', 'eliminated', 'roses']
 
 
 class ContestantDetailSerializer(serializers.ModelSerializer):
     pick = serializers.SerializerMethodField('get_pick')
-    team_id = serializers.SerializerMethodField('team_id')
-    team_name = serializers.SerializerMethodField('team_name')
+    team_id = serializers.SerializerMethodField('get_team_id')
+    team_name = serializers.SerializerMethodField('get_team_name')
 
     class Meta:
         model = models.Contestant
-        fields = ['id', 'name', 'age', 'image', 'profession', 'eliminated', 'pick', 'team_id', 'team_name']
+        fields = ['id', 'name', 'age', 'image', 'profession', 'eliminated', 'pick', 'team_id', 'team_name', 'roses']
 
     def get_pick(self, obj):
         return models.DraftPick.objects.filter(contestant=obj).first().pick
 
     def get_team_id(self, obj):
-        return models.Team.objects.filter(contestant=obj).first().id
+        return obj.teams.first().id
 
     def get_team_name(self, obj):
-        return models.Team.objects.filter(contestant=obj).first().name
+        return obj.teams.first().name
 
 
 class TeamSerializer(serializers.ModelSerializer):
     contestants = ContestantSerializer(many=True, read_only=True)
+    total_roses = serializers.SerializerMethodField()
 
     class Meta:
         model = models.Team
-        fields = ['id', 'name', 'image', 'contestants']
+        fields = ['id', 'name', 'image', 'contestants', 'total_roses']
+
+    def get_total_roses(self, obj):
+        return obj.total_roses
 
 
 class DraftPickSerializer(serializers.ModelSerializer):

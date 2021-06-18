@@ -1,12 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from "axios"
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
 import { Avatar, Divider, Link, makeStyles, Paper, Typography } from '@material-ui/core';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
@@ -46,6 +40,15 @@ const useStyles = makeStyles((theme) => ({
   bio: {
     margin: 'auto auto auto 20px',
     display: 'block',
+  },
+  actions: {
+    position: 'relative'
+  },
+  teamLink: {
+    marginRight: 'auto',
+  },
+  pickNumber: {
+    marginLeft: 'auto',
   }
 }));
 
@@ -64,6 +67,7 @@ export const Contestant = () => {
   }, [contestant]);
 
   return (
+    <>
       <Card className={classes.card} variant="outlined">
         <CardContent className={classes.cardContent}>
           <Avatar className={classes.large} src={contestant?.image} />
@@ -74,11 +78,20 @@ export const Contestant = () => {
             </Typography>
             <Divider />
             <Typography variant="p" color="textSecondary">{contestant?.age}, {contestant?.profession}</Typography>
+            <Typography variant="subtitle2">{contestant?.roses} roses</Typography>
           </div>
-          <Link href={`/team/${contestant?.teams?.id}`}>Team {contestant?.team?.name}</Link>
-          <Typography variant='subtitle1'>Drafted #{contestant?.pick} overall</Typography>
         </CardContent>
-
+        <CardActions className={classes.actions}>
+          <Link className={classes.teamLink} color='inherit' href={`/team/${contestant?.team_id}`}>
+            <Typography variant='subtitle1'>Team {contestant?.team_name}</Typography>
+          </Link>
+          <Typography className={classes.pickNumber} variant='subtitle2'>Drafted #{contestant?.pick} overall</Typography>
+        </CardActions>
       </Card>
+
+      <Paper elevation={3} variant='outlined'>
+        {contestant?.bio}
+      </Paper>
+      </>
   )
 }

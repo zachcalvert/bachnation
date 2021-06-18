@@ -30,6 +30,10 @@ class Team(models.Model):
     def __str__(self):
         return self.name
 
+    @property
+    def total_roses(self):
+        return sum([c.roses for c in self.contestants.all()])
+
 
 class Contestant(models.Model):
     """Represents a Contestant on a given season of the Bachelor/Bachelorette
@@ -42,6 +46,7 @@ class Contestant(models.Model):
     age = models.IntegerField(default=0)
     bio = models.TextField(null=True, blank=True)
     eliminated = models.BooleanField(default=False)
+    roses = models.IntegerField(default=0)
 
     class Meta:
         ordering = ['name']

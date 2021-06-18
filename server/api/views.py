@@ -31,6 +31,10 @@ class ContestantViewSet(viewsets.ModelViewSet):
     queryset = Contestant.objects.all()
     serializer_class = serializers.ContestantSerializer
 
+    def retrieve(self, request, *args, **kwargs):
+        self.serializer_class = serializers.ContestantDetailSerializer
+        return super(ContestantViewSet, self).retrieve(request, *args, **kwargs)
+
 
 class DraftViewSet(viewsets.ModelViewSet):
     queryset = Draft.objects.all()
