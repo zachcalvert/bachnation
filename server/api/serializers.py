@@ -7,7 +7,7 @@ class ContestantSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Contestant
-        fields = ['id', 'name', 'age', 'image', 'profession', 'eliminated', 'roses']
+        fields = ['id', 'name', 'age', 'image', 'profession', 'eliminated', 'roses', 'bio']
 
 
 class ContestantDetailSerializer(serializers.ModelSerializer):
@@ -17,7 +17,7 @@ class ContestantDetailSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Contestant
-        fields = ['id', 'name', 'age', 'image', 'profession', 'eliminated', 'pick', 'team_id', 'team_name', 'roses']
+        fields = ['id', 'name', 'age', 'image', 'profession', 'eliminated', 'pick', 'team_id', 'team_name', 'roses', 'bio']
 
     def get_pick(self, obj):
         return models.DraftPick.objects.filter(contestant=obj).first().pick

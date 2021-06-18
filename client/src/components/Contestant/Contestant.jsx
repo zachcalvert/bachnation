@@ -40,6 +40,7 @@ const useStyles = makeStyles((theme) => ({
   bio: {
     margin: 'auto auto auto 20px',
     display: 'block',
+    padding: theme.spacing(3)
   },
   actions: {
     position: 'relative'
@@ -49,6 +50,11 @@ const useStyles = makeStyles((theme) => ({
   },
   pickNumber: {
     marginLeft: 'auto',
+  },
+  contestantBio: {
+    margin: 'auto',
+    display: 'block',
+    padding: theme.spacing(3)
   }
 }));
 
@@ -89,7 +95,7 @@ export const Contestant = () => {
         </CardActions>
       </Card>
 
-      <Paper elevation={3} variant='outlined'>
+      <Paper elevation={3} variant='outlined' className={classes.contestantBio}>
         {contestant?.bio}
       </Paper>
       </>

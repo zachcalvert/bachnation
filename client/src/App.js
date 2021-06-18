@@ -115,7 +115,7 @@ export const App = () => {
           <Link color="inherit" href="/">
             <span className={classes.home}>🌹</span>
           </Link>
-          <Typography variant='h6'>The Original Bach League</Typography>
+          <Typography variant='h6'>The League</Typography>
           <IconButton style={{"outline": "none"}} className={classes.darkModeToggle} edge="end" color="inherit" onClick={handleDarkModeChange} aria-label="dark-mode-toggle">
             <Brightness4Icon style={{"fill": prefersDarkMode ? "#ffeb3b" : ""}} />
           </IconButton>

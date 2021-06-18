@@ -1,5 +1,5 @@
 """
-WSGI config for bbr_nation project.
+WSGI config for bachnation project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
