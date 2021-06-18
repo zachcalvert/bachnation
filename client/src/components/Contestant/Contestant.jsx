@@ -55,6 +55,9 @@ const useStyles = makeStyles((theme) => ({
     margin: 'auto',
     display: 'block',
     padding: theme.spacing(3)
+  },
+  roses: {
+    fontSize: 20
   }
 }));
 
@@ -84,7 +87,7 @@ export const Contestant = () => {
             </Typography>
             <Divider />
             <Typography variant="p" color="textSecondary">{contestant?.age}, {contestant?.profession}</Typography>
-            <Typography variant="subtitle2">{contestant?.roses} roses</Typography>
+            <Typography className={classes.roses} variant="subtitle2">{contestant?.roses}</Typography>
           </div>
         </CardContent>
         <CardActions className={classes.actions}>

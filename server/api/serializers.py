@@ -4,14 +4,19 @@ from draft import models
 
 
 class ContestantSerializer(serializers.ModelSerializer):
+    roses = serializers.SerializerMethodField()
 
     class Meta:
         model = models.Contestant
         fields = ['id', 'name', 'age', 'image', 'profession', 'eliminated', 'roses', 'bio']
 
+    def get_roses(self, obj):
+        return ['🌹'*obj.roses]
+
 
 class ContestantDetailSerializer(serializers.ModelSerializer):
     pick = serializers.SerializerMethodField('get_pick')
+    roses = serializers.SerializerMethodField()
     team_id = serializers.SerializerMethodField('get_team_id')
     team_name = serializers.SerializerMethodField('get_team_name')
 
@@ -22,6 +27,9 @@ class ContestantDetailSerializer(serializers.ModelSerializer):
     def get_pick(self, obj):
         return models.DraftPick.objects.filter(contestant=obj).first().pick
 
+    def get_roses(self, obj):
+        return ['🌹'*obj.roses]
+
     def get_team_id(self, obj):
         return obj.teams.first().id
 
@@ -31,14 +39,14 @@ class ContestantDetailSerializer(serializers.ModelSerializer):
 
 class TeamSerializer(serializers.ModelSerializer):
     contestants = ContestantSerializer(many=True, read_only=True)
-    total_roses = serializers.SerializerMethodField()
+    total_roses = serializers.SerializerMethodField('get_total_roses')
 
     class Meta:
         model = models.Team
         fields = ['id', 'name', 'image', 'contestants', 'total_roses']
 
     def get_total_roses(self, obj):
-        return obj.total_roses
+        return ['🌹'*obj.total_roses]
 
 
 class DraftPickSerializer(serializers.ModelSerializer):

@@ -47,6 +47,9 @@ const useStyles = makeStyles((theme) => ({
   medium: {
     width: 80,
     height: 80
+  },
+  roses: {
+    fontSize: 20
   }
 }));
 
@@ -72,7 +75,7 @@ export const Team = () => {
           <Avatar className={classes.large} src={team?.image} />
           <div className={classes.teamContainer}>
             {team &&<Typography variant='h6'>Team {team.name}</Typography>}
-            {team && <Typography variant='subtitle2'>{team.total_roses} roses</Typography>}
+            {team && <Typography className={classes.roses} variant='subtitle2'>{team.total_roses}</Typography>}
           </div>
         </div>
       </Card>

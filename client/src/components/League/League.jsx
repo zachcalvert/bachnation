@@ -56,6 +56,9 @@ const useStyles = makeStyles((theme) => ({
   },
   gridList: {
     padding: theme.spacing(2)
+  },
+  roses: {
+    fontSize: 20
   }
 }));
 
@@ -83,7 +86,7 @@ export const League = () => {
                   <Link className={classes.teamName} color='inherit' href={`/team/${team.id}`}>
                     <Typography variant='h6'>Team {team.name}</Typography>
                   </Link>
-                  <Typography variant='subtitle2'>{team.total_roses} roses</Typography>
+                  <Typography className={classes.roses} variant='subtitle2'>{team.total_roses}</Typography>
                 </div>
               </div>
               <Divider />
@@ -94,6 +97,7 @@ export const League = () => {
                     <GridListTile key={contestant.id} cols={2}>
                       <Avatar className={contestant.eliminated ? classes.eliminated : classes.medium} src={contestant.image} />
                       <Typography variant='subtitle1'>{contestant.name}</Typography>
+                      <Typography variant='subtitle1'>{contestant.roses}</Typography>
                     </GridListTile>
                   </Link>
                 ))}
