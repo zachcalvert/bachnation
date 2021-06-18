@@ -47,9 +47,11 @@ const useStyles = makeStyles((theme) => ({
   },
   teamLink: {
     marginRight: 'auto',
+    marginLeft: theme.spacing(3)
   },
   pickNumber: {
     marginLeft: 'auto',
+    marginRight: theme.spacing(3)
   },
   contestantBio: {
     margin: 'auto',
@@ -57,7 +59,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(3)
   },
   roses: {
-    fontSize: 20
+    fontSize: 32
   }
 }));
 
