@@ -1,6 +1,5 @@
 import React from 'react';
-import axios from "axios"
-import { makeStyles } from '@material-ui/core/styles';
+import { Avatar, makeStyles, Link, Typography } from '@material-ui/core';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -8,82 +7,83 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import { Hidden, Link } from '@material-ui/core';
-
-const CONTESTANTS_URL = `${process.env.REACT_APP_DJANGO_URL}api/contestants/`
 
 const useStyles = makeStyles((theme) => ({
-  paper: {
-    padding: theme.spacing(2),
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-    height: "auto",
-    marginTop: 0,
-    position: 'relative'
+  container: {
+    marginTop: theme.spacing(1)
   },
   table: {
-    minWidth: 350,
+    minWidth: 400
   },
-  smallText: {
-    fontSize: '14px',
-  },
-  large: {
-    width: theme.spacing(20),
-    height: theme.spacing(20),
-  },
-  teamHeader: {
-    display: 'flex',
-  },
-  teamInfo: {
+  photo: {
+    height: 60,
+    width: 60,
     margin: 'auto',
-    textAlign: 'left'
+    marginLeft: 0,
+    marginRight: 0
+  },
+  nameCell: {
+    display: 'flex',
+    minWidth: 200
+  },
+  linkContainer: {
+    display: 'block',
+    padding: theme.spacing(2)
+  },
+  teamName: {
+    marginBottom: 'auto',
+    marginLeft: theme.spacing(2)
+  },
+  eliminated: {
+    height: 60,
+    width: 60,
+    margin: 'auto',
+    marginLeft: 0,
+    marginRight: 0,
+    opacity: '20%',
+  },
+  roses: {
+    fontSize: 20
   }
 }));
 
-export const AllContestants = () => {
+export const AllContestants = (props) => {
   const classes = useStyles();
-  const [contestants, setContestants] = React.useState([]);
-  
-  async function fetchContestants() {
-    const { data } = await axios.get(CONTESTANTS_URL);
-    setContestants(data.results);
-  }
+  const { contestants } = props;
 
-  React.useEffect(() => {
-    fetchContestants();
-  }, []);
-  
   return (
-    <TableContainer component={Paper}>
-      <Table className={classes.table} aria-label="simple table">
+    <TableContainer className={classes.container} component={Paper}>
+      <Table className={classes.table} size="small" aria-label="a dense table">
         <TableHead>
           <TableRow>
             <TableCell>Name</TableCell>
-            <TableCell align="right">Age</TableCell>
-            <TableCell align="right">Profession</TableCell>
+            <TableCell align="center">Team</TableCell>
             <TableCell align="right">Roses</TableCell>
-            <Hidden smDown>
-              <TableCell align="right">Team</TableCell>
-            </Hidden>
           </TableRow>
         </TableHead>
         <TableBody>
-          {contestants.map((contestant, index) => (
+          {contestants.map((contestant) => (
             <TableRow key={contestant.id}>
-              <TableCell>{contestant.name}</TableCell>
-              <TableCell align="right">{contestant.age}</TableCell>
-              <TableCell align="right">{contestant.profession}</TableCell>
-              <TableCell align="right">{contestant.roses}</TableCell>
-              <Hidden smDown>
-                <TableCell component="th" scope="row">
-                  <Link color='inherit' href={`/contestant/${contestant.id}`}>{contestant.name}</Link>
-                </TableCell>
-              </Hidden>
+              <TableCell component="th" scope="row">
+                <div className={classes.nameCell}>
+                  <Avatar className={contestant.eliminated ? classes.eliminated : classes.photo} src={contestant.image} />
+                  <div className={classes.linkContainer}>
+                    <Link color='inherit' href={`/contestant/${contestant.id}`}>
+                      <Typography variant='h6'>{contestant.name}</Typography>
+                    </Link>
+                  </div>
+                </div>
+              </TableCell>
+              <TableCell align="center">
+                <Link color='inherit' href={`/team/${contestant.team_id}`}>
+                  <Typography >{contestant.team_name}</Typography>
+                </Link>
+              </TableCell>
+              <TableCell align="right"><span className={classes.roses}>{contestant.roses}</span></TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
     </TableContainer>
-  );
+  )
 }
-

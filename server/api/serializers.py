@@ -4,17 +4,6 @@ from draft import models
 
 
 class ContestantSerializer(serializers.ModelSerializer):
-    roses = serializers.SerializerMethodField()
-
-    class Meta:
-        model = models.Contestant
-        fields = ['id', 'name', 'age', 'image', 'profession', 'eliminated', 'roses', 'bio']
-
-    def get_roses(self, obj):
-        return ['🌹'*obj.roses]
-
-
-class ContestantDetailSerializer(serializers.ModelSerializer):
     pick = serializers.SerializerMethodField('get_pick')
     roses = serializers.SerializerMethodField()
     team_id = serializers.SerializerMethodField('get_team_id')

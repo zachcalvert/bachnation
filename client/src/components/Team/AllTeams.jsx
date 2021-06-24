@@ -1,93 +1,99 @@
-import React, { useEffect, useState } from 'react';
-import axios from "axios"
-import { makeStyles } from '@material-ui/core/styles';
-import { Hidden, Link, Table } from '@material-ui/core';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
+import React from 'react';
 
+import { Avatar, Paper, Divider, Grid, GridList, GridListTile, Link, makeStyles, Typography } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
+  board: {
+    display: "flex",
+    height: '100%',
+    width: '100%',
+    padding: theme.spacing(2)
+  },
   paper: {
     padding: theme.spacing(2),
+    flexWrap: 'wrap',
+    justifyContent: 'space-around',
+    overflow: 'hidden',
     textAlign: 'center',
-    color: theme.palette.text.secondary,
-    height: "auto",
-    marginTop: 0,
-    position: 'relative'
+    backgroundColor: theme.palette.background.paper,
+    width: 350,
+    [theme.breakpoints.down('sm')]: {
+      width: '88vw',
+    },
   },
-  table: {
-    minWidth: 350,
+  large: {
+    height: 100,
+    width: 100,
+    margin: theme.spacing(2)
   },
+  medium: {
+    height: 80,
+    width: 80,
+    margin: 'auto'
+  },
+  eliminated: {
+    height: 80,
+    width: 80,
+    opacity: '20%',
+    margin: 'auto'
+  },
+  teamCell: {
+    display: 'flex',
+  },
+  teamContainer: {
+    display: 'block',
+    padding: theme.spacing(2)
+  },
+  teamName: {
+    marginBottom: 'auto',
+    marginLeft: theme.spacing(2)
+  },
+  totalRoses: {
+    marginBottom: 'auto',
+    marginLeft: theme.spacing(2)
+  },
+  gridList: {
+    padding: theme.spacing(2)
+  },
+  roses: {
+    fontSize: 20
+  }
 }));
 
-export const AllTeams = () => {
+export const AllTeams = (props) => {
   const classes = useStyles();
-  const DETAIL_URL = `${process.env.REACT_APP_DJANGO_URL}api/teams/all/`
-  const [teams, setTeams] = useState([]);
+  const { teams } = props;
 
-  useEffect(() => {
-    async function fetchTeams() {
-      const { data } = await axios.get(DETAIL_URL, {
-        headers: {
-          Authorization: `JWT ${localStorage.getItem('token')}`
-        }
-      });
-      setTeams(data.results);
-    }
-    fetchTeams();
-  }, [DETAIL_URL]);
-  
   return (
-    <>
-      <TableContainer component={Paper}>
-        <Table className={classes.table} aria-label="simple table">
-          <TableHead>
-          <TableRow>
-              <TableCell>Rank</TableCell>
-              <TableCell>Team</TableCell>
-              <TableCell align="right">Year</TableCell>
-              <TableCell align="right">Points Scored</TableCell>
-              <Hidden smDown>
-              <TableCell align="right">Manager</TableCell>
-              </Hidden>
-              <Hidden mdDown>
-                <TableCell align="right">Wins</TableCell>
-              </Hidden>
-              <Hidden mdDown>
-              <TableCell align="right">Losses</TableCell>
-              </Hidden>
-          </TableRow>
-          </TableHead>
-          <TableBody>
-          {teams.map((team, index) => (
-            <TableRow key={team.name}>
-              <TableCell>{index + 1}</TableCell>
-              <TableCell component="th" scope="row">
-                <Link color='inherit' href={`/season/${team.year}/team/${team.id}`}>{team.name}</Link>
-              </TableCell>
-              <TableCell align="right">{team.year}</TableCell>
-              <TableCell align="right">{team.points_for}</TableCell>
-              <Hidden smDown>
-              <TableCell align="right">
-                <Link color='inherit' href={`/u/${team.manager}/`}>{team.manager}</Link>
-              </TableCell>
-              </Hidden>
-              <Hidden mdDown>
-              <TableCell align="right">{team.wins}</TableCell>
-              </Hidden>
-              <Hidden mdDown>
-              <TableCell align="right">{team.losses}</TableCell>
-              </Hidden>
-            </TableRow>
-          ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </>
-  );
-}
+    <Grid className={classes.board} container spacing={3}>
+      {teams.map((team) => (
+        <Grid item key={team.id}>
+            <Paper className={classes.paper} variant='outlined'>
+              <div className={classes.teamCell}>
+                <Avatar className={classes.large} src={team.image} />
+                <div className={classes.teamContainer}>
+                  <Link className={classes.teamName} color='inherit' href={`/team/${team.id}`}>
+                    <Typography variant='h6'>Team {team.name}</Typography>
+                  </Link>
+                  <Typography className={classes.roses} variant='subtitle2'>{team.total_roses}</Typography>
+                </div>
+              </div>
+              <Divider />
 
+              <GridList cellHeight={160} className={classes.gridList} cols={3}>
+                {team.contestants.map((contestant) => (
+                  <Link color='inherit' href={`/contestant/${contestant.id}`}>
+                    <GridListTile key={contestant.id} cols={2}>
+                      <Avatar className={contestant.eliminated ? classes.eliminated : classes.medium} src={contestant.image} />
+                      <Typography variant='subtitle1'>{contestant.name}</Typography>
+                      <Typography variant='subtitle1'>{contestant.roses}</Typography>
+                    </GridListTile>
+                  </Link>
+                ))}
+              </GridList>
+            </Paper>
+        </Grid>
+      ))}
+    </Grid>
+  )
+}

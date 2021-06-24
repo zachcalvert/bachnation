@@ -49,7 +49,7 @@ class Contestant(models.Model):
     roses = models.IntegerField(default=0)
 
     class Meta:
-        ordering = ['name']
+        ordering = ['eliminated', '-roses', 'name']
 
     def __str__(self):
         return self.name

@@ -1,111 +1,53 @@
 import React, { useEffect, useState } from 'react';
 import axios from "axios"
 import { Avatar, Paper, Divider, Grid, GridList, GridListTile, Link, makeStyles, Typography } from '@material-ui/core';
+import { ToggleButton, ToggleButtonGroup } from '@material-ui/lab';
+
+import { AllContestants } from '../Contestant/AllContestants';
+import { AllTeams } from '../Team/AllTeams';
 
 const LEAGUE_URL = `${process.env.REACT_APP_DJANGO_URL}api/leagues/1/`
-
-const useStyles = makeStyles((theme) => ({
-  board: {
-    display: "flex",
-    height: '100%',
-    width: '100%',
-    padding: theme.spacing(2)
-  },
-  paper: {
-    padding: theme.spacing(2),
-    flexWrap: 'wrap',
-    justifyContent: 'space-around',
-    overflow: 'hidden',
-    textAlign: 'center',
-    backgroundColor: theme.palette.background.paper,
-    width: 350,
-    [theme.breakpoints.down('sm')]: {
-      width: '88vw',
-    },
-  },
-  large: {
-    height: 100,
-    width: 100,
-    margin: theme.spacing(2)
-  },
-  medium: {
-    height: 80,
-    width: 80,
-    margin: 'auto'
-  },
-  eliminated: {
-    height: 80,
-    width: 80,
-    opacity: '50%',
-    margin: 'auto'
-  },
-  teamCell: {
-    display: 'flex',
-  },
-  teamContainer: {
-    display: 'block',
-    padding: theme.spacing(2)
-  },
-  teamName: {
-    marginBottom: 'auto',
-    marginLeft: theme.spacing(2)
-  },
-  totalRoses: {
-    marginBottom: 'auto',
-    marginLeft: theme.spacing(2)
-  },
-  gridList: {
-    padding: theme.spacing(2)
-  },
-  roses: {
-    fontSize: 20
-  }
-}));
+const CONTESTANTS_URL = `${process.env.REACT_APP_DJANGO_URL}api/contestants/`
 
 export const League = () => {
-  const classes = useStyles();
-  const [league, setLeague] = useState({"teams": []})
+  const [league, setLeague] = useState({"teams": []});
+  const [contestants, setContestants] = useState([]);
+  const [view, setView] = useState('contestants');
 
   useEffect(() => {
     async function fetchLeague() {
       const { data } = await axios.get(LEAGUE_URL);
       setLeague(data);
     }
+    async function fetchContestants() {
+      const { data } = await axios.get(CONTESTANTS_URL);
+      setContestants(data.results);
+    }
     fetchLeague();
+    fetchContestants();
   }, []);
+
+  const handleView = (event, newView) => {
+    setView(newView)
+  };
   
   return (
-    <Grid className={classes.board} container spacing={3}>
-      {league.teams?.map((team) => (
-        <Grid item key={team.id}>
-
-            <Paper className={classes.paper} variant='outlined'>
-              <div className={classes.teamCell}>
-                <Avatar className={classes.large} src={team.image} />
-                <div className={classes.teamContainer}>
-                  <Link className={classes.teamName} color='inherit' href={`/team/${team.id}`}>
-                    <Typography variant='h6'>Team {team.name}</Typography>
-                  </Link>
-                  <Typography className={classes.roses} variant='subtitle2'>{team.total_roses}</Typography>
-                </div>
-              </div>
-              <Divider />
-
-              <GridList cellHeight={160} className={classes.gridList} cols={3}>
-                {team.contestants.map((contestant) => (
-                  <Link color='inherit' href={`/contestant/${contestant.id}`}>
-                    <GridListTile key={contestant.id} cols={2}>
-                      <Avatar className={contestant.eliminated ? classes.eliminated : classes.medium} src={contestant.image} />
-                      <Typography variant='subtitle1'>{contestant.name}</Typography>
-                      <Typography variant='subtitle1'>{contestant.roses}</Typography>
-                    </GridListTile>
-                  </Link>
-                ))}
-              </GridList>
-            </Paper>
-        </Grid>
-      ))}
-    </Grid>
+    <>
+      <ToggleButtonGroup
+        value={view}
+        exclusive
+        onChange={handleView}
+        aria-label="position-filter">
+      <ToggleButton value="contestants" aria-label="contestant view">
+        <Typography variant='h6'>Contestants</Typography>
+      </ToggleButton>
+      <ToggleButton value="teams" aria-label="team view">
+        <Typography variant='h6'>Teams</Typography>
+      </ToggleButton>
+    </ToggleButtonGroup>
+    
+    {view === 'contestants' ? <AllContestants contestants={contestants} /> : <AllTeams teams={league.teams} />  }
+    </>
   )
 }
   
