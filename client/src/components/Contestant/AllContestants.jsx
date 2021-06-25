@@ -27,16 +27,20 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   nameCell: {
-    display: 'flex'  
+    display: 'flex',
+    minWidth: 140
   },
   linkContainer: {
     display: 'block',
-    padding: theme.spacing(2)
+    padding: theme.spacing(2),
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '14px!important'
+    },
   },
   teamName: {
     margin: 'auto',
     [theme.breakpoints.down('sm')]: {
-      fontSize: 10
+      fontSize: '14px!important'
     },
   },
   eliminated: {
@@ -46,11 +50,19 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: 0,
     marginRight: 0,
     opacity: '20%',
+    [theme.breakpoints.down('sm')]: {
+      height: 40,
+      width: 40,
+    },
+  },
+  rosesContainer: {
+    minWidth: 90
   },
   roses: {
     fontSize: 20,
+    minWidth: 100,
     [theme.breakpoints.down('sm')]: {
-      fontSize: 16
+      fontSize: 14
     },
   }
 }));
@@ -77,17 +89,17 @@ export const AllContestants = (props) => {
                   <Avatar className={contestant.eliminated ? classes.eliminated : classes.photo} src={contestant.image} />
                   <div className={classes.linkContainer}>
                     <Link color='inherit' href={`/contestant/${contestant.id}`}>
-                      <Typography>{contestant.name}</Typography>
+                      <p>{contestant.name}</p>
                     </Link>
                   </div>
                 </div>
               </TableCell>
               <TableCell align="center">
                 <Link className={classes.teamName} color='inherit' href={`/team/${contestant.team_id}`}>
-                  <Typography >{contestant.team_name}</Typography>
+                  <p >{contestant.team_name}</p>
                 </Link>
               </TableCell>
-              <TableCell align="right"><span className={classes.roses}>{contestant.roses}</span></TableCell>
+              <TableCell className={classes.rosesContainer} align="right"><span className={classes.roses}>{contestant.roses}</span></TableCell>
             </TableRow>
           ))}
         </TableBody>
