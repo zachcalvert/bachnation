@@ -10,29 +10,34 @@ import Paper from '@material-ui/core/Paper';
 
 const useStyles = makeStyles((theme) => ({
   container: {
-    marginTop: theme.spacing(1)
+    marginTop: theme.spacing(1),
   },
   table: {
-    minWidth: 400
+    minWidth: '100%'
   },
   photo: {
     height: 60,
     width: 60,
     margin: 'auto',
     marginLeft: 0,
-    marginRight: 0
+    marginRight: 0,
+    [theme.breakpoints.down('sm')]: {
+      height: 40,
+      width: 40,
+    },
   },
   nameCell: {
-    display: 'flex',
-    minWidth: 200
+    display: 'flex'  
   },
   linkContainer: {
     display: 'block',
     padding: theme.spacing(2)
   },
   teamName: {
-    marginBottom: 'auto',
-    marginLeft: theme.spacing(2)
+    margin: 'auto',
+    [theme.breakpoints.down('sm')]: {
+      fontSize: 10
+    },
   },
   eliminated: {
     height: 60,
@@ -43,7 +48,10 @@ const useStyles = makeStyles((theme) => ({
     opacity: '20%',
   },
   roses: {
-    fontSize: 20
+    fontSize: 20,
+    [theme.breakpoints.down('sm')]: {
+      fontSize: 16
+    },
   }
 }));
 
@@ -69,13 +77,13 @@ export const AllContestants = (props) => {
                   <Avatar className={contestant.eliminated ? classes.eliminated : classes.photo} src={contestant.image} />
                   <div className={classes.linkContainer}>
                     <Link color='inherit' href={`/contestant/${contestant.id}`}>
-                      <Typography variant='h6'>{contestant.name}</Typography>
+                      <Typography>{contestant.name}</Typography>
                     </Link>
                   </div>
                 </div>
               </TableCell>
               <TableCell align="center">
-                <Link color='inherit' href={`/team/${contestant.team_id}`}>
+                <Link className={classes.teamName} color='inherit' href={`/team/${contestant.team_id}`}>
                   <Typography >{contestant.team_name}</Typography>
                 </Link>
               </TableCell>
