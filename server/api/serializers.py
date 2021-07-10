@@ -8,10 +8,11 @@ class ContestantSerializer(serializers.ModelSerializer):
     roses = serializers.SerializerMethodField()
     team_id = serializers.SerializerMethodField('get_team_id')
     team_name = serializers.SerializerMethodField('get_team_name')
+    team_color = serializers.SerializerMethodField('get_team_color')
 
     class Meta:
         model = models.Contestant
-        fields = ['id', 'name', 'age', 'image', 'profession', 'eliminated', 'pick', 'team_id', 'team_name', 'roses', 'bio']
+        fields = ['id', 'name', 'age', 'image', 'profession', 'eliminated', 'pick', 'team_id', 'team_name', 'roses', 'bio', 'team_color']
 
     def get_pick(self, obj):
         return models.DraftPick.objects.filter(contestant=obj).first().pick
@@ -24,6 +25,9 @@ class ContestantSerializer(serializers.ModelSerializer):
 
     def get_team_name(self, obj):
         return obj.teams.first().name
+
+    def get_team_color(self, obj):
+        return obj.teams.first().color
 
 
 class TeamSerializer(serializers.ModelSerializer):

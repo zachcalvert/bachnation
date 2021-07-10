@@ -49,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
     margin: 'auto',
     marginLeft: 0,
     marginRight: 0,
-    opacity: '20%',
+    opacity: '40%',
     [theme.breakpoints.down('sm')]: {
       height: 40,
       width: 40,
@@ -86,7 +86,7 @@ export const AllContestants = (props) => {
             <TableRow key={contestant.id}>
               <TableCell component="th" scope="row">
                 <div className={classes.nameCell}>
-                  <Avatar className={contestant.eliminated ? classes.eliminated : classes.photo} src={contestant.image} />
+                  <Avatar style={{ border: `2px solid ${contestant.team_color}` }} className={contestant.eliminated ? classes.eliminated : classes.photo} src={contestant.image} />
                   <div className={classes.linkContainer}>
                     <Link color='inherit' href={`/contestant/${contestant.id}`}>
                       <p>{contestant.name}</p>

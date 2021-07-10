@@ -112,9 +112,7 @@ export const App = () => {
           >
             <MenuIcon />
           </IconButton>
-          <Link color="inherit" href="/">
-            <Typography style={{ textDecoration: 'none' }} variant='h6'>🌹 The League 🌹</Typography>
-          </Link>
+            <a href="/" style={{ color: '#F0F0F0',textDecoration: 'none' }}><Typography variant='h6'>🌹 Bach Nation 🌹</Typography></a>
 
           <IconButton style={{"outline": "none"}} className={classes.darkModeToggle} edge="end" color="inherit" onClick={handleDarkModeChange} aria-label="dark-mode-toggle">
             <Brightness4Icon style={{"fill": prefersDarkMode ? "#ffeb3b" : ""}} />
