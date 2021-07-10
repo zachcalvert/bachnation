@@ -7,11 +7,12 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     textAlign: 'center',
     [theme.breakpoints.down('sm')]: {
-      margin: 0,
+      margin: '0 16px 0 16px',
       padding: 0
     },
   },
   contestant: {
+    position: 'relative',
     margin: theme.spacing(2),
     [theme.breakpoints.down('sm')]: {
       margin: theme.spacing(1)
@@ -31,10 +32,6 @@ const useStyles = makeStyles((theme) => ({
     margin: 'auto',
     marginLeft: 0,
     marginRight: 0,
-    [theme.breakpoints.down('sm')]: {
-      height: 125,
-      width: 125,
-    },
   },
   eliminated: {
     height: 150,
@@ -42,11 +39,7 @@ const useStyles = makeStyles((theme) => ({
     margin: 'auto',
     marginLeft: 0,
     marginRight: 0,
-    opacity: '40%',
-    [theme.breakpoints.down('sm')]: {
-      height: 125,
-      width: 125,
-    }
+    opacity: '50%',
   },
   large: {
     height: 250,
@@ -56,6 +49,14 @@ const useStyles = makeStyles((theme) => ({
   roses: {
     fontSize: 24,
     letterSpacing: '5px'
+  },
+  roseDecoration: {
+    position: 'absolute',
+    width: 'fit-content',
+    bottom: '-10px',
+    left: '50%',
+    transform: 'translateX(-50%)',
+    fontSize: 30
   }
 }));
 
@@ -103,13 +104,10 @@ export const AllContestants = (props) => {
               style={{ border: `2px solid ${contestant.team_color}` }}
               className={contestant.eliminated ? classes.eliminated : classes.photo}
               src={contestant.image} />
+            <div className={classes.roseDecoration}>
+              {contestant.roses}
+            </div>
           </div>
-            // <TableCell align="center">
-            //   <Link className={classes.teamName} color='inherit' href={`/team/${contestant.team_id}`}>
-            //     <p >{contestant.team_name}</p>
-            //   </Link>
-            // </TableCell>
-            // <TableCell className={classes.rosesContainer} align="right"><span className={classes.roses}>{contestant.roses}</span></TableCell>
         ))}
       </Grid>
     </>

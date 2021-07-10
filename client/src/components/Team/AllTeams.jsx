@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
   eliminated: {
     height: 80,
     width: 80,
-    opacity: '20%',
+    opacity: '75%',
     margin: 'auto'
   },
   teamCell: {
