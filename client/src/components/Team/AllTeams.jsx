@@ -9,7 +9,11 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     padding: theme.spacing(4),
     textAlign: 'center',
-    margin: '0 auto'
+    margin: '0 auto',
+    [theme.breakpoints.down('sm')]: {
+      margin: 0,
+      padding: 0
+    },
   },
   accordion: {
     margin: theme.spacing(2),
