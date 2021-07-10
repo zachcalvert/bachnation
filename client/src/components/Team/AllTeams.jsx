@@ -16,8 +16,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   accordion: {
-    margin: theme.spacing(2),
-    color: '#FFF'
+    margin: theme.spacing(2)  
   },
   large: {
     height: 100,
