@@ -76,14 +76,14 @@ export const AllTeams = (props) => {
         <animated.div key={i} style={{ transform: interpolate([x, y], (x, y) => `translate3d(${x}px,${y}px,0)`) }}>
           <animated.div style={{ transform: interpolate([rot, scale], trans) }}>
             <Grid item key={teams[i].id}>
-              <Accordion style={{ background: teams[i].color }} className={classes.accordion}>
+              <Accordion className={classes.accordion}>
                 <AccordionSummary
-                  expandIcon={<ExpandMoreIcon />}
+                  expandIcon={<ExpandMoreIcon style={{ color: teams[i].color }} />}
                   aria-controls="panel1a-content"
                   id="panel1a-header"
                 >
                   <div className={classes.teamCell}>
-                    <Avatar className={classes.large} src={teams[i].image} />
+                    <Avatar style={{ border: `3px solid ${teams[i].color}` }} className={classes.large} src={teams[i].image} />
                     <div className={classes.teamContainer}>
                       <Link className={classes.teamName} color='inherit' href={`/team/${teams[i].id}`}>
                         <Typography variant='h6'>Team {teams[i].name}</Typography>
@@ -93,12 +93,15 @@ export const AllTeams = (props) => {
                   </div>
                 </AccordionSummary>
                 <Divider />
-                <AccordionDetails>
+                <AccordionDetails style={{ background: teams[i].color }}>
                   <GridList cellHeight={160} className={classes.gridList} cols={3}>
                     {teams[i].contestants.map((contestant) => (
                       <Link color='inherit' href={`/contestant/${contestant.id}`}>
                         <GridListTile className={classes.tile} key={contestant.id} cols={2}>
-                          <Avatar className={contestant.eliminated ? classes.eliminated : classes.medium} src={contestant.image} />
+                          <Avatar
+                            style={{ border: `1px solid #333` }}
+                            className={contestant.eliminated ? classes.eliminated : classes.medium} 
+                            src={contestant.image} />
                           <Typography variant='subtitle1'>{contestant.name}</Typography>
                           <Typography variant='subtitle2'>{contestant.roses}</Typography>
                         </GridListTile>
