@@ -76,7 +76,7 @@ export const AllTeams = (props) => {
         <animated.div key={i} style={{ transform: interpolate([x, y], (x, y) => `translate3d(${x}px,${y}px,0)`) }}>
           <animated.div style={{ transform: interpolate([rot, scale], trans) }}>
             <Grid item key={teams[i].id}>
-              <Accordion className={classes.accordion}>
+              <Accordion elevation={3} className={classes.accordion} style={{ border: `1px solid ${teams[i].color}` }}>
                 <AccordionSummary
                   expandIcon={<ExpandMoreIcon style={{ color: teams[i].color }} />}
                   aria-controls="panel1a-content"

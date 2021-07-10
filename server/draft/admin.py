@@ -45,6 +45,10 @@ def bring_back(modeladmin, request, queryset):
 mark_as_drafted.short_description = 'Bring Back'
 
 
+class TeamAdmin(admin.ModelAdmin):
+    list_display = ('name', 'color', 'ordering',)
+
+
 class ContestantAdmin(admin.ModelAdmin):
     list_display = ('name', 'profession', 'age',)
     search_fields = ['name', 'profession']
@@ -56,4 +60,4 @@ admin.site.register(Draft)
 admin.site.register(DraftPick)
 admin.site.register(League)
 admin.site.register(Season)
-admin.site.register(Team)
+admin.site.register(Team, TeamAdmin)
