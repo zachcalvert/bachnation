@@ -6,8 +6,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 import './TableOfContents.css';
 
-const TEAMS_URL = `${process.env.REACT_APP_DJANGO_URL}api/teams/`
-const CONTESTANTS_URL = `${process.env.REACT_APP_DJANGO_URL}api/contestants/`
+const SEASONS_URL = `${process.env.REACT_APP_DJANGO_URL}api/leagues/`
 
 const useStyles = makeStyles((theme) => ({
   toc: {
@@ -21,62 +20,29 @@ const useStyles = makeStyles((theme) => ({
 
 export const TableOfContents = () => {
   const classes = useStyles();
-  const [teams, setTeams] = useState([]);
-  const [contestants, setContestants] = useState([]);
+  const [seasons, setSeasons] = useState([]);
 
   useEffect(() => {
-    async function fetchContestants() {
-      const { data } = await axios.get(CONTESTANTS_URL);
-      setContestants(data.results);        
+    async function fetchSeasons() {
+      const { data } = await axios.get(SEASONS_URL);
+      setSeasons(data.results);        
     }
-    async function fetchTeams() {
-      const { data } = await axios.get(TEAMS_URL);
-      setTeams(data.results);        
-    }
-    fetchContestants();
-    fetchTeams();
+    fetchSeasons();
   }, []);
 
   return (
     <div className={classes.toc}>
-      <MenuItem
-        className={classes.draftLink}
-        key={1} 
-        component={Link}
-        to={`/draft`}>
-          <Typography variant='h5'>Draft</Typography>
-      </MenuItem>
-      <Typography variant='h5'>Teams</Typography>
+      <Typography variant='h5'>Seasons</Typography>
       <List>
-        {teams.map((team) => (
+        {seasons.map((season) => (
           <MenuItem 
-            key={team.id} 
-            component={Link}
-            to={`/team/${team.id}`}>
-              <Typography variant='h6'>{team.name}</Typography>
+            key={season.id} 
+            component={Link}>
+            {/* to={`/season/${season.id}`}> */}
+              <Typography variant='h6'>{season.name}</Typography>
           </MenuItem>
         ))}
       </List>
-      <Accordion>
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel1a-content"
-          id="panel1a-header">
-          <Typography variant='h5'>Contestants</Typography>
-        </AccordionSummary>
-        <AccordionDetails className='accordion-details'>
-          <List>
-            {contestants.map((contestant) => (
-              <MenuItem 
-                key={contestant.id} 
-                component={Link}
-                to={`/contestant/${contestant.id}`}>
-                  <Typography variant='h6'>{contestant.name}</Typography>
-              </MenuItem>
-            ))}
-          </List>
-        </AccordionDetails>
-      </Accordion>
     </div>
   )
 }

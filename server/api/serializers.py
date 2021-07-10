@@ -32,10 +32,10 @@ class TeamSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Team
-        fields = ['id', 'name', 'image', 'contestants', 'total_roses']
+        fields = ['id', 'name', 'image', 'contestants', 'total_roses', 'color']
 
     def get_total_roses(self, obj):
-        return ['🌹'*obj.total_roses]
+        return obj.total_roses
 
 
 class DraftPickSerializer(serializers.ModelSerializer):

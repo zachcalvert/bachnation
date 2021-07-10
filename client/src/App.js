@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
     height: '100%'
   },
   appBar: {
-    background: '#4E78A0',
+    background: '#9a0007',
     zIndex: theme.zIndex.drawer + 1,
     width: '100%',
     [theme.breakpoints.up('sm')]: {

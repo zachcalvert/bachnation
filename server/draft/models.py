@@ -26,6 +26,11 @@ class Team(models.Model):
     name = models.CharField(max_length=100)
     league = models.ForeignKey(League, on_delete=models.CASCADE, related_name='teams')
     image = models.FileField(upload_to='uploads/%Y/%m/%d/', null=True, blank=True)
+    color = models.CharField(max_length=20, null=True, blank=True)
+    ordering = models.IntegerField(default=0)
+
+    class Meta:
+        ordering = ['ordering']
 
     def __str__(self):
         return self.name
