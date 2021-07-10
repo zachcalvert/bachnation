@@ -12,7 +12,7 @@ const CONTESTANTS_URL = `${process.env.REACT_APP_DJANGO_URL}api/contestants/`
 export const League = () => {
   const [league, setLeague] = useState({"teams": []});
   const [contestants, setContestants] = useState([]);
-  const [view, setView] = useState('teams');
+  const [view, setView] = useState('contestants');
 
   useEffect(() => {
     async function fetchLeague() {
@@ -33,17 +33,17 @@ export const League = () => {
   
   return (
     <>
-      <div style={{ marginTop: '16px', textAlign: 'left' }}>
+      <div style={{ margin: '16px 0', textAlign: 'left' }}>
         <ToggleButtonGroup
           value={view}
           exclusive
           onChange={handleView}
           aria-label="position-filter">
-          <ToggleButton value="teams" aria-label="team view">
-            <Typography variant='h6'>Teams</Typography>
-          </ToggleButton>
           <ToggleButton value="contestants" aria-label="contestant view">
             <Typography variant='h6'>Contestants</Typography>
+          </ToggleButton>
+          <ToggleButton value="teams" aria-label="team view">
+            <Typography variant='h6'>Teams</Typography>
           </ToggleButton>
         </ToggleButtonGroup>
       </div>

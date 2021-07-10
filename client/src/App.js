@@ -7,11 +7,9 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Brightness4Icon from '@material-ui/icons/Brightness4';
 
 import { AllContestants } from './components/Contestant/AllContestants';
-import { Contestant } from './components/Contestant/Contestant';
 import { DraftResults } from "./components/Draft/DraftResults";
 import { League } from './components/League/League';
 import { TableOfContents } from './components/TableOfContents/TableOfContents';
-import { Team } from './components/Team/Team';
 
 const drawerWidth = 250;
 
@@ -152,9 +150,6 @@ export const App = () => {
         <main className={classes.content}>
           <div className={classes.toolbar} />
             <Route path="/draft/" component={DraftResults} />
-            <Route path="/team/:id" component={Team} />
-            <Route path="/contestant/:id" exact component={Contestant} />
-            <Route path="/contestants/" exact component={AllContestants} />
             <Route path="/" exact component={League} />
         </main>
     </div>
