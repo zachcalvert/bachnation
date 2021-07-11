@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
     width: 375,
     [theme.breakpoints.down('sm')]: {
       margin: 8,
-      width: '340'
+      width: '90vw'
     },
   },
   large: {

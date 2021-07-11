@@ -92,7 +92,7 @@ export const AllContestants = (props) => {
     opacity: 1,
     color: 'white',
     from: { opacity: 0 },
-    delay: '1500'
+    delay: '1200'
   })
 
   const handleClick = contestant => e =>  {
