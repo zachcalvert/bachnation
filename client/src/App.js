@@ -5,8 +5,8 @@ import { createMuiTheme, CssBaseline, Grid, Hidden, Link, ThemeProvider, makeSty
 import { AppBar, Drawer, IconButton, Toolbar, Typography } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import Brightness4Icon from '@material-ui/icons/Brightness4';
+import LoyaltyIcon from '@material-ui/icons/Loyalty';
 
-import { AllContestants } from './components/Contestant/AllContestants';
 import { DraftResults } from "./components/Draft/DraftResults";
 import { League } from './components/League/League';
 import { TableOfContents } from './components/TableOfContents/TableOfContents';
@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
     height: '100%'
   },
   appBar: {
-    background: '#9a0007',
+    background: '#e57373',
     zIndex: theme.zIndex.drawer + 1,
     width: '100%',
     [theme.breakpoints.up('sm')]: {
@@ -110,7 +110,9 @@ export const App = () => {
           >
             <MenuIcon />
           </IconButton>
-            <a href="/" style={{ color: '#F0F0F0',textDecoration: 'none' }}><Typography variant='h6'>🌹 Bach Nation 🌹</Typography></a>
+            <a href="/" style={{ color: '#F0F0F0',textDecoration: 'none' }}>
+              <img height='32px' src='favicon.ico' />
+            </a>
 
           <IconButton style={{"outline": "none"}} className={classes.darkModeToggle} edge="end" color="inherit" onClick={handleDarkModeChange} aria-label="dark-mode-toggle">
             <Brightness4Icon style={{"fill": prefersDarkMode ? "#ffeb3b" : ""}} />
