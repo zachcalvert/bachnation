@@ -118,7 +118,7 @@ export const AllTeams = (props) => {
         </DialogContent>
         <Divider />
         <DialogActions style={{ background: active?.team_color, color: '#FFF' }}>
-          <Typography variant='h6'>Team {active?.team_name}</Typography>
+          <Typography variant='h6' style={{ margin: '0 auto' }}>Team {active?.team_name}</Typography>
         </DialogActions>
       </Dialog>
 
