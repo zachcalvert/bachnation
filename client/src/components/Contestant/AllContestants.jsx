@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
   closeModal: {
     position: 'absolute',
     top: 0,
-    right: '10px'
+    right: 0
   },
   photo: {
     height: 150,
@@ -119,7 +119,7 @@ export const AllContestants = (props) => {
           <Typography className={classes.bio} variant='subtitle2'>{active?.bio}</Typography>
         </DialogContent>
         <Divider />
-        <DialogActions>
+        <DialogActions style={{ background: active?.team_color }}>
           <Typography variant='h6'>Team {active?.team_name}</Typography>
         </DialogActions>
       </Dialog>

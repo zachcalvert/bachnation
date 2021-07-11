@@ -2,6 +2,8 @@ import React from 'react';
 import { useSprings, animated, interpolate } from 'react-spring'
 import { Accordion, AccordionDetails, AccordionSummary, Avatar, Dialog, DialogTitle, DialogActions, DialogContent, Grid, GridList, GridListTile, Link, makeStyles, Typography, Divider, Zoom } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
 
 const useStyles = makeStyles((theme) => ({
   board: {
@@ -27,6 +29,11 @@ const useStyles = makeStyles((theme) => ({
     height: 100,
     width: 100,
     margin: theme.spacing(2)
+  },
+  contestantLarge: {
+    height: 250,
+    width: 250,
+    margin: 'auto'
   },
   medium: {
     height: 80,
@@ -63,6 +70,11 @@ const useStyles = makeStyles((theme) => ({
   },
   roses: {
     fontSize: 20
+  },
+  closeModal: {
+    position: 'absolute',
+    top: 0,
+    right: 0
   }
 }));
 
@@ -95,14 +107,17 @@ export const AllTeams = (props) => {
           <Typography className={classes.roses}>{active?.roses}</Typography>
         </DialogTitle>
         <DialogContent>
+          <IconButton className={classes.closeModal} onClick={e => setOpen(false)} aria-label="close">
+            <CloseIcon fontSize="inherit" />
+          </IconButton>
           <Avatar
-            className={classes.large}
+            className={classes.contestantLarge}
             src={active?.image}
             style={{ border: `3px solid ${active?.team_color}`, marginBottom: '16px' }} />
           <Typography className={classes.bio} variant='subtitle2'>{active?.bio}</Typography>
         </DialogContent>
         <Divider />
-        <DialogActions>
+        <DialogActions style={{ background: active?.team_color }}>
           <Typography variant='h6'>Team {active?.team_name}</Typography>
         </DialogActions>
       </Dialog>
