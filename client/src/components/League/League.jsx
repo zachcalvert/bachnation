@@ -48,7 +48,7 @@ export const League = () => {
         </ToggleButtonGroup>
       </div>
 
-      {view === 'contestants' ? <AllContestants contestants={contestants} /> : <AllTeams teams={league.teams} />  }
+      {view === 'contestants' ? <AllContestants contestants={contestants} /> : <AllTeams teams={league.teams} contestants={contestants} />  }
     </>
   )
 }

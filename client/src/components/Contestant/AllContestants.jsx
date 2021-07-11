@@ -1,5 +1,10 @@
 import React from 'react';
-import { Avatar, Dialog, DialogTitle, DialogActions, DialogContent, Grid, makeStyles, Paper, Typography, Zoom, Divider } from '@material-ui/core';
+import {Spring} from 'react-spring/renderprops';
+import { Avatar, Dialog, DialogTitle, DialogActions, DialogContent, Grid, 
+  makeStyles, Typography, Zoom, Divider } from '@material-ui/core';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
+
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -25,6 +30,11 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: '300px',
     height: '100px',
     textOverflow: 'scroll'
+  },
+  closeModal: {
+    position: 'absolute',
+    top: 0,
+    right: '10px'
   },
   photo: {
     height: 150,
@@ -53,10 +63,10 @@ const useStyles = makeStyles((theme) => ({
   roseDecoration: {
     position: 'absolute',
     width: 'fit-content',
-    bottom: '-10px',
+    bottom: '-20px',
     left: '50%',
     transform: 'translateX(-50%)',
-    fontSize: 30
+    fontSize: 24
   }
 }));
 
@@ -70,8 +80,8 @@ export const AllContestants = (props) => {
   const [open, setOpen] = React.useState(false);
   const [active, setActive] = React.useState(null);
 
-  const handleClick = (e) => {
-    setActive(contestants[e.target.parentElement.parentElement.id]);
+  const handleClick = contestant => e =>  {
+    setActive(contestant);
     setOpen(true);
   }
 
@@ -84,6 +94,9 @@ export const AllContestants = (props) => {
           <Typography className={classes.roses}>{active?.roses}</Typography>
         </DialogTitle>
         <DialogContent>
+          <IconButton className={classes.closeModal} onClick={e => setOpen(false)} aria-label="close">
+            <CloseIcon fontSize="inherit" />
+          </IconButton>
           <Avatar
             className={classes.large}
             src={active?.image}
@@ -98,16 +111,20 @@ export const AllContestants = (props) => {
 
       <Grid container classes={classes.container}>
         {contestants.map((contestant, index) => (
-          <div className={classes.contestant} onClick={handleClick} key={index} id={index}>
-            <Avatar 
-              id={index}
-              style={{ border: `2px solid ${contestant.team_color}` }}
-              className={contestant.eliminated ? classes.eliminated : classes.photo}
-              src={contestant.image} />
-            <div className={classes.roseDecoration}>
-              {contestant.roses}
-            </div>
-          </div>
+          <Spring from={{ opacity: 0, marginTop: -1000 }} to={{ opacity: 1, marginTop: 16 }}>
+            { props => (
+              <div className={classes.contestant} style={ props } onClick={handleClick(contestant)} key={index} id={index}>
+                <Avatar 
+                  id={index}
+                  style={{ border: `2px solid ${contestant.team_color}` }}
+                  className={contestant.eliminated ? classes.eliminated : classes.photo}
+                  src={contestant.image} />
+                <div className={classes.roseDecoration}>
+                  {contestant.roses}
+                </div>
+              </div>
+            )}
+          </Spring>
         ))}
       </Grid>
     </>
