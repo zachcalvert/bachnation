@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
   eliminated: {
     height: 80,
     width: 80,
-    opacity: '75%',
+    opacity: '50%',
     margin: 'auto'
   },
   teamCell: {
@@ -117,7 +117,7 @@ export const AllTeams = (props) => {
           <Typography className={classes.bio} variant='subtitle2'>{active?.bio}</Typography>
         </DialogContent>
         <Divider />
-        <DialogActions style={{ background: active?.team_color }}>
+        <DialogActions style={{ background: active?.team_color, color: '#FFF' }}>
           <Typography variant='h6'>Team {active?.team_name}</Typography>
         </DialogActions>
       </Dialog>

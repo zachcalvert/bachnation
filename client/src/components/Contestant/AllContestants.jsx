@@ -119,7 +119,7 @@ export const AllContestants = (props) => {
           <Typography className={classes.bio} variant='subtitle2'>{active?.bio}</Typography>
         </DialogContent>
         <Divider />
-        <DialogActions style={{ background: active?.team_color }}>
+        <DialogActions style={{ background: active?.team_color, color: '#FFF' }}>
           <Typography variant='h6'>Team {active?.team_name}</Typography>
         </DialogActions>
       </Dialog>
