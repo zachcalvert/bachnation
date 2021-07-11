@@ -10,17 +10,20 @@ const useStyles = makeStyles((theme) => ({
   container: {
     display: "flex",
     width: '100%',
-    textAlign: 'center',
     [theme.breakpoints.down('sm')]: {
-      margin: '0 16px 0 16px',
+      margin: '0 auto 0 auto',
       padding: 0
     },
   },
   contestant: {
     position: 'relative',
     margin: theme.spacing(2),
+    marginLeft: 'auto',
+    marginRight: 'auto',
     [theme.breakpoints.down('sm')]: {
-      margin: theme.spacing(1)
+      margin: theme.spacing(1),
+      marginLeft: 'auto',
+      marginRight: 'auto'
     },
   },
   zoomed: {
