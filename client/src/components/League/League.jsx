@@ -33,7 +33,7 @@ export const League = () => {
   
   return (
     <>
-      <div style={{ margin: '16px 0', textAlign: 'left' }}>
+      <div style={{ margin: '16px 0', textAlign: 'center' }}>
         <ToggleButtonGroup
           value={view}
           exclusive

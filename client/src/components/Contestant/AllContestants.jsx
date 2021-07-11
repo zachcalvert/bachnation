@@ -1,10 +1,10 @@
 import React from 'react';
-import {Spring} from 'react-spring/renderprops';
+import { useSpring, animated } from 'react-spring';
+import { Spring } from 'react-spring/renderprops';
 import { Avatar, Dialog, DialogTitle, DialogActions, DialogContent, Grid, 
   makeStyles, Typography, Zoom, Divider } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
-
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
       padding: 0
     },
   },
-  contestant: {
+  contestantContainer: {
     position: 'relative',
     margin: theme.spacing(2),
     marginLeft: 'auto',
@@ -24,6 +24,12 @@ const useStyles = makeStyles((theme) => ({
       margin: theme.spacing(1),
       marginLeft: 'auto',
       marginRight: 'auto'
+    },
+  },
+  contestant: {
+    margin: theme.spacing(1),
+    [theme.breakpoints.down('sm')]: {
+      margin: 8
     },
   },
   zoomed: {
@@ -82,6 +88,12 @@ export const AllContestants = (props) => {
   const { contestants } = props;
   const [open, setOpen] = React.useState(false);
   const [active, setActive] = React.useState(null);
+  const fadeProps = useSpring({
+    opacity: 1,
+    color: 'white',
+    from: { opacity: 0 },
+    delay: '1500'
+  })
 
   const handleClick = contestant => e =>  {
     setActive(contestant);
@@ -115,16 +127,20 @@ export const AllContestants = (props) => {
       <Grid container classes={classes.container}>
         {contestants.map((contestant, index) => (
           <Spring from={{ opacity: 0, marginTop: -1000 }} to={{ opacity: 1, marginTop: 16 }}>
-            { props => (
-              <div className={classes.contestant} style={ props } onClick={handleClick(contestant)} key={index} id={index}>
+            { springProps => (
+              <div className={classes.contestantContainer}>
+              <div className={classes.contestant} style={ springProps } onClick={handleClick(contestant)} key={index} id={index}>
                 <Avatar 
                   id={index}
                   style={{ border: `2px solid ${contestant.team_color}` }}
                   className={contestant.eliminated ? classes.eliminated : classes.photo}
                   src={contestant.image} />
-                <div className={classes.roseDecoration}>
-                  {contestant.roses}
-                </div>
+                <animated.div style={fadeProps}>
+                  <div className={classes.roseDecoration}>
+                    {contestant.roses}
+                  </div>
+                </animated.div>
+              </div>
               </div>
             )}
           </Spring>

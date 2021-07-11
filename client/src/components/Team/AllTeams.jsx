@@ -16,7 +16,12 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   accordion: {
-    margin: theme.spacing(2)  
+    margin: theme.spacing(1) ,
+    width: 375,
+    [theme.breakpoints.down('sm')]: {
+      margin: 8,
+      width: '340'
+    },
   },
   large: {
     height: 100,
@@ -104,7 +109,7 @@ export const AllTeams = (props) => {
 
       <Grid className={classes.board} container spacing={3}>
         {properties.map(({ x, y, rot, scale }, i) => (
-          <animated.div key={i} style={{ transform: interpolate([x, y], (x, y) => `translate3d(${x}px,${y}px,0)`) }}>
+          <animated.div key={i} style={{ transform: interpolate([x, y], (x, y) => `translate3d(${x}px,${y}px,0)`), margin: '0 auto' }}>
             <animated.div style={{ transform: interpolate([rot, scale], trans) }}>
               <Grid item key={teams[i].id}>
                 <Accordion elevation={3} className={classes.accordion} style={{ border: `1px solid ${teams[i].color}` }}>
